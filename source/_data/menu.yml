@@ -1,0 +1,26 @@
+############################### Navigation Bar ############################### > start
+# 注意事项：建议规范全站路径 URL 最后带一个 "/" 例如 "about/"
+navbar:
+  visiable: auto # always, auto
+  logo: # choose [img] or [icon + title]
+    img: #
+    icon: 
+    title: Silence Loft
+  menu:
+    - name: 博客
+      icon: fas fa-rss
+      url: /
+    - name: 分类
+      icon: fas fa-folder-open
+      url: categories/
+    - name: 标签
+      icon: fas fa-tags
+      url: tags/
+    - name: 归档
+      icon: fas fa-archive
+      url: archives/
+    - name: 关于
+      icon: fas fa-info-circle
+      url: about/
+  search: Search...   # Search bar placeholder
+############################### Navigation Bar ############################### > end
