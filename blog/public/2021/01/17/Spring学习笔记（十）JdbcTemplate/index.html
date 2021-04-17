@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Hexo</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Hexo"><meta name="msapplication-TileImage" content="/img/favicon-cat.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Hexo"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Spring学习笔记（十）JdbcTemplate十、Jdbc Template 编码方式  pom.xml   &amp;lt;?xml version&amp;#x3D;&amp;quot;1.0&amp;quot; encoding&amp;#x3D;&amp;quot;UTF-8&amp;quot;?&amp;gt;   &amp;lt;project xmlns&amp;#x3D;&amp;quot;http:&amp;#x2F;&amp;#x2F;maven.apache.org&amp;#x2F;POM&amp;#x2F;4.0.0&amp;quot;            x"><meta property="og:type" content="blog"><meta property="og:title" content="Hexo"><meta property="og:url" content="http://example.com/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89JdbcTemplate/"><meta property="og:site_name" content="Hexo"><meta property="og:description" content="Spring学习笔记（十）JdbcTemplate十、Jdbc Template 编码方式  pom.xml   &amp;lt;?xml version&amp;#x3D;&amp;quot;1.0&amp;quot; encoding&amp;#x3D;&amp;quot;UTF-8&amp;quot;?&amp;gt;   &amp;lt;project xmlns&amp;#x3D;&amp;quot;http:&amp;#x2F;&amp;#x2F;maven.apache.org&amp;#x2F;POM&amp;#x2F;4.0.0&amp;quot;            x"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/og_image.png"><meta property="article:published_time" content="2021-01-17T06:58:11.000Z"><meta property="article:modified_time" content="2021-01-17T06:58:11.000Z"><meta property="article:author" content="John Doe"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89JdbcTemplate/"},"headline":"Hexo","image":["http://example.com/img/og_image.png"],"datePublished":"2021-01-17T06:58:11.000Z","dateModified":"2021-01-17T06:58:11.000Z","author":{"@type":"Person","name":"John Doe"},"description":"Spring学习笔记（十）JdbcTemplate十、Jdbc Template 编码方式  pom.xml   &lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;   &lt;project xmlns&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0&quot;            x"}</script><link rel="canonical" href="http://example.com/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%EF%BC%89JdbcTemplate/"><link rel="icon" href="/img/favicon-cat.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/darcula.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://s4.aconvert.com/convert/p3r68-cdx67/a034g-95v5z.svg" alt="Hexo" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/greysonOuyang"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-01-17T06:58:11.000Z" title="2021-1-17 2:58:11 ├F10: PM┤">2021-01-17</time>发表</span><span class="level-item"><time dateTime="2021-01-17T06:58:11.000Z" title="2021-1-17 2:58:11 ├F10: PM┤">2021-01-17</time>更新</span><span class="level-item">2 分钟读完 (大约293个字)</span></div></div><h1 class="title is-3 is-size-4-mobile"> </h1><div class="content"><h1 id="Spring学习笔记（十）JdbcTemplate"><a href="#Spring学习笔记（十）JdbcTemplate" class="headerlink" title="Spring学习笔记（十）JdbcTemplate"></a>Spring学习笔记（十）JdbcTemplate</h1><h2 id="十、Jdbc-Template"><a href="#十、Jdbc-Template" class="headerlink" title="十、Jdbc Template"></a>十、Jdbc Template</h2><ol>
+<li><p>编码方式</p>
+<ul>
+<li><p>pom.xml</p>
+<pre><code>  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+           xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+           xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+      &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+      &lt;groupId&gt;com.greyson&lt;/groupId&gt;
+      &lt;artifactId&gt;jdbctTemplates&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+      &lt;packaging&gt;jar&lt;/packaging&gt;
+
+      &lt;dependencies&gt;
+          &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+              &lt;version&gt;5.0.7.RELEASE&lt;/version&gt;
+          &lt;/dependency&gt;
+
+          &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+              &lt;version&gt;5.0.2.RELEASE&lt;/version&gt;
+          &lt;/dependency&gt;
+
+          &lt;dependency&gt;
+              &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+              &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;
+              &lt;version&gt;5.0.2.RELEASE &lt;/version&gt;
+          &lt;/dependency&gt;
+
+          &lt;dependency&gt;
+              &lt;groupId&gt;mysql&lt;/groupId&gt;
+              &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+              &lt;version&gt;5.1.6&lt;/version&gt;
+          &lt;/dependency&gt;
+
+      &lt;/dependencies&gt;</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>        &lt;/project&gt;
+
+- Account
+
+
+        /**
+         * Account domain class
+         *
+         */
+        public class Account implements Serializable &#123;
+
+            private Integer Id;
+            private String name;
+            private Float money;
+
+            public Integer getId() &#123;
+                return Id;
+            &#125;
+
+            public void setId(Integer id) &#123;
+                Id = id;
+            &#125;
+
+            public String getName() &#123;
+                return name;
+            &#125;
+
+            public void setName(String name) &#123;
+                this.name = name;
+            &#125;
+
+            public Float getMoney() &#123;
+                return money;
+            &#125;
+
+            public void setMoney(Float money) &#123;
+                this.money = money;
+            &#125;
+
+            @Override
+            public String toString() &#123;
+                return &quot;Account&#123;&quot; +
+                        &quot;Id=&quot; + Id +
+                        &quot;, name=&#39;&quot; + name + &#39;\&#39;&#39; +
+                        &quot;, money=&quot; + money +
+                        &#39;&#125;&#39;;
+            &#125;
+        &#125;
+
+- JdbcTemplateDemo
+
+        /**
+         * The Basic Usage of JdbcTemplate
+         */
+        public class JdbcTemplateDemo &#123;
+
+            public static void main(String[] args) &#123;
+                // prepare dataSource
+                DriverManagerDataSource dataSource = new DriverManagerDataSource();
+                dataSource.setDriverClassName(&quot;com.mysql.jdbc.Driver&quot;);
+                dataSource.setUrl(&quot;jdbc:mysql://localhost:3306/eesy&quot;);
+                dataSource.setUsername(&quot;root&quot;);
+                dataSource.setPassword(&quot;HotteMYSQL&quot;);
+                // 1. create the object of JdbcTemplate
+                JdbcTemplate jdbcTemplate = new JdbcTemplate();
+                jdbcTemplate.setDataSource(dataSource);
+                // 2. execute operation
+                jdbcTemplate.execute(&quot;insert into  account(name, money)values(&#39;aaa&#39;, 1000)&quot;);
+            &#125;
+        &#125;</code></pre>
+<ol start="2">
+<li><p>配置方式</p>
+<p> 添加配置文件<code>ApplicationContext.xml</code>以及修改<code>JdbcTemplateDemo</code></p>
+<ul>
+<li><p>ApplicationContext.xml</p>
+<pre><code>  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+
+      &lt;!-- congigure JdbcTemplate--&gt;
+      &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+          &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+      &lt;/bean&gt;
+
+      &lt;!--configure dataSource--&gt;
+      &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+          &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;&gt;&lt;/property&gt;
+          &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/eesy&quot;&gt;&lt;/property&gt;
+          &lt;property name=&quot;username&quot; value=&quot;root&quot;&gt;&lt;/property&gt;
+          &lt;property name=&quot;password&quot; value=&quot;HotteMYSQL&quot;&gt;&lt;/property&gt;
+      &lt;/bean&gt;
+  &lt;/beans&gt;</code></pre>
+</li>
+<li><p>JdbcTemplateDemo2</p>
+<pre><code>  /**
+   * The Basic Usage of JdbcTemplate
+   */
+  public class JdbcTemplateDemo &#123;
+
+      public static void main(String[] args) &#123;
+          // prepare dataSource
+          DriverManagerDataSource dataSource = new DriverManagerDataSource();
+          dataSource.setDriverClassName(&quot;com.mysql.jdbc.Driver&quot;);
+          dataSource.setUrl(&quot;jdbc:mysql://localhost:3306/eesy&quot;);
+          dataSource.setUsername(&quot;root&quot;);
+          dataSource.setPassword(&quot;HotteMYSQL&quot;);
+          // 1. create the object of JdbcTemplate
+          JdbcTemplate jdbcTemplate = new JdbcTemplate();
+          jdbcTemplate.setDataSource(dataSource);
+          // 2. execute operation
+          jdbcTemplate.execute(&quot;insert into  account(name, money)values(&#39;aaa&#39;, 1000)&quot;);
+      &#125;
+  &#125;</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="Spring学习笔记（十一）事务管理"><a href="#Spring学习笔记（十一）事务管理" class="headerlink" title="Spring学习笔记（十一）事务管理"></a><a href="Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%E4%B8%80%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86.md">Spring学习笔记（十一）事务管理</a></h1></div><div class="article-licensing box"><div class="licensing-title"><p><a href="http://example.com/2021/01/17/Spring学习笔记（十）JdbcTemplate/">http://example.com/2021/01/17/Spring学习笔记（十）JdbcTemplate/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>John Doe</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-01-17</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-01-17</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=6003f77ef474080012973e00&amp;product=inline-share-buttons" defer></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%8D%81%E4%B8%80%EF%BC%89%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/"><i class="level-item fas fa-chevron-left"></i><span class="level-item"> </span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89%E5%9F%BA%E4%BA%8Exml%E7%9A%84IOC%E6%A1%88%E4%BE%8B/"><span class="level-item"> </span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><script>new Valine({
+            el: '#valine-thread' ,
+            appId: "nVWxPJu5lObQclUpo1Ka69fo-gzGzoHsz",
+            appKey: "YLnHUOOBbVA6aFI5nUOrif7w",
+            
+            avatar: "mm",
+            
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            lang: "zh-CN",
+            
+            highlight: true,
+            
+            
+            
+            
+            
+            requiredFields: [],
+        });</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="Silence"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Silence</p><p class="is-size-6 is-block">文艺科技工作者</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>shenzhen</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">1</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/ppoffice" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-17T06:58:11.000Z">2021-01-17</time></p><p class="title"><a href="/2021/01/17/Mybatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-17T06:58:11.000Z">2021-01-17</time></p><p class="title"><a href="/2021/01/17/Readme/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-17T06:58:11.000Z">2021-01-17</time></p><p class="title"><a href="/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-17T06:58:11.000Z">2021-01-17</time></p><p class="title"><a href="/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"> </a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-01-17T06:58:11.000Z">2021-01-17</time></p><p class="title"><a href="/2021/01/17/Spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%83%EF%BC%89%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E6%9E%90/"> </a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">一月 2021</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/02/"><span class="level-start"><span class="level-item">二月 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/"><span class="tag">高并发</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://s4.aconvert.com/convert/p3r68-cdx67/a034g-95v5z.svg" alt="Hexo" height="28"></a><p class="is-size-7"><span>&copy; 2021 John Doe</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
