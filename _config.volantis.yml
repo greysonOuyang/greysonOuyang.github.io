@@ -21,7 +21,7 @@ navbar:
   visiable: auto # always, auto
   logo: # choose [img] or [icon + title]
     img: #
-    icon: 
+    icon: https://z3.ax1x.com/2021/04/17/c437DO.png
     title: Silence Loft
   menu:
     - name: 博客
